@@ -3439,16 +3439,16 @@ footer {
     --bs-gutter-y: 0.75rem;
   }
   #branch-section .row.g-4 > [class*="col-"] {
-    flex: 0 0 50%;
-    max-width: 50%;
+    flex: 0 0 100%;
+    max-width: 100%;
   }
   .branch-card {
-    padding: 16px 14px;
+    padding: 18px 16px;
     border-radius: 18px;
-    gap: 10px;
+    gap: 12px;
   }
   .branch-head {
-    gap: 10px;
+    gap: 12px;
   }
   .branch-icon {
     width: 40px;
@@ -3461,7 +3461,7 @@ footer {
     line-height: 1.15;
   }
   .branch-head p {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
   .branch-rate {
     font-size: 0.68rem;
@@ -3479,7 +3479,7 @@ footer {
     font-size: 0.62rem;
   }
   .branch-meta span {
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     line-height: 1.45;
   }
   .branch-actions {
@@ -3487,8 +3487,8 @@ footer {
     gap: 8px;
   }
   .branch-actions a {
-    padding: 11px 10px;
-    font-size: 0.78rem;
+    padding: 12px 12px;
+    font-size: 0.8rem;
     border-radius: 14px;
   }
   #category .row.g-3 {
