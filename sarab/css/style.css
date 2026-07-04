@@ -1045,6 +1045,9 @@ section {
 .mwrap.gone {
   display: none !important;
 }
+.photo-group.gone {
+  display: none !important;
+}
 .mcard {
   background: #fff;
   border-radius: 18px;
@@ -1060,7 +1063,8 @@ section {
 .mimg {
   position: relative;
   overflow: hidden;
-  height: 215px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   background: var(--cream2);
 }
 .mimg img {
@@ -1374,6 +1378,110 @@ section {
 .gover i {
   color: var(--secondary);
   margin-right: 5px;
+}
+
+/* ===================== PRODUCTS PHOTO GALLERY ===================== */
+.product-gallery {
+  background:
+    radial-gradient(circle at top left, rgba(232, 40, 26, 0.08), transparent 28%),
+    linear-gradient(180deg, #fff 0%, #fff7f3 100%);
+}
+.gallery-collections {
+  display: grid;
+  gap: 28px;
+}
+.photo-group {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(232, 40, 26, 0.09);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  backdrop-filter: blur(6px);
+}
+.photo-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.photo-kicker {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: rgba(232, 40, 26, 0.08);
+  padding: 5px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.photo-group h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  font-weight: 900;
+}
+.photo-count {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(232, 40, 26, 0.08);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+}
+.photo-card {
+  position: relative;
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.photo-card:hover img {
+  transform: scale(1.05);
+}
+.photo-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 54%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
+  opacity: 0.9;
+}
+.photo-caption {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.photo-caption small {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
+  margin-top: 2px;
 }
 
 /* ===================== HISTORY â€” FIX 8 ===================== */

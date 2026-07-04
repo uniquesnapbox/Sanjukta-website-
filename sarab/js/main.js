@@ -148,6 +148,15 @@ function filterMenu(cat) {
             w.classList.add('gone');
         }
     });
+    // show/hide photo gallery groups
+    document.querySelectorAll('.photo-group').forEach(function(g) {
+        var c = g.getAttribute('data-c');
+        if (cat === 'all' || c === cat) {
+            g.classList.remove('gone');
+        } else {
+            g.classList.add('gone');
+        }
+    });
 }
 
 // Filter buttons
