@@ -183,6 +183,92 @@ document.querySelectorAll('.catcard').forEach(function(card) {
 
 var menuPop = document.getElementById('menuPop');
 var mpQty = 1;
+var mpThumbs = document.getElementById('mpThumbs');
+var mpGalleryWrap = document.querySelector('.mpgallery');
+var mpCurrentGallery = [];
+
+function normalizeGalleryKey(text) {
+    return String(text || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim()
+        .replace(/\s+/g, ' ');
+}
+
+function setMenuMainImage(src) {
+    var mpImg = document.getElementById('mpImg');
+    if (mpImg && src) {
+        mpImg.setAttribute('src', src);
+    }
+}
+
+function getProductGallery(card, fallbackImg) {
+    var galleryAttr = card && card.getAttribute('data-gallery');
+    if (galleryAttr) {
+        return galleryAttr.split(',').map(function(src) {
+            return src.trim();
+        }).filter(Boolean);
+    }
+
+    var titleKey = normalizeGalleryKey(card && card.getAttribute('data-title'));
+    var folderMap = {
+        'namkeen': 'Namkeen Mix',
+        'chanachur': 'Namkeen Mix',
+        'jhal bhujiya': 'Namkeen Mix',
+        'tikha mixture': 'Namkeen Mix',
+        'khatta meetha mixture': 'Namkeen Mix',
+        'navratna mixture': 'Namkeen Mix',
+        'chira bhaja': 'Chira Bhaja',
+        'chira bhaja mix': 'Chira Bhaja'
+    };
+    var folderName = folderMap[titleKey];
+    var groups = window.PRODUCT_GALLERY_DATA || [];
+    var group = null;
+
+    if (folderName) {
+        var folderKey = normalizeGalleryKey(folderName);
+        group = groups.find(function(item) {
+            return normalizeGalleryKey(item.name) === folderKey;
+        });
+    }
+
+    if (!group) {
+        group = groups.find(function(item) {
+            return normalizeGalleryKey(item.name) === titleKey;
+        });
+    }
+
+    var photos = group && Array.isArray(group.photos) ? group.photos.filter(Boolean) : [];
+    if (!photos.length && fallbackImg) {
+        photos = [fallbackImg];
+    }
+    return photos;
+}
+
+function renderMenuGallery(photos) {
+    if (!mpThumbs || !mpGalleryWrap) return;
+
+    mpThumbs.innerHTML = '';
+    if (!photos || photos.length <= 1) {
+        mpGalleryWrap.style.display = 'none';
+        return;
+    }
+
+    mpGalleryWrap.style.display = 'block';
+    photos.forEach(function(src, index) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mpthumb' + (index === 0 ? ' active' : '');
+        btn.setAttribute('data-src', src);
+
+        var img = document.createElement('img');
+        img.setAttribute('src', src);
+        img.setAttribute('alt', 'Product photo ' + (index + 1));
+
+        btn.appendChild(img);
+        mpThumbs.appendChild(btn);
+    });
+}
 
 function openMenuPop(card) {
     if (!menuPop || !card) return;
@@ -197,8 +283,11 @@ function openMenuPop(card) {
     var time = card.getAttribute('data-time');
     var desc = card.getAttribute('data-desc');
     var tags = card.getAttribute('data-tags') || '';
+    var gallery = getProductGallery(card, img);
 
-    document.getElementById('mpImg').setAttribute('src', img);
+    mpCurrentGallery = gallery;
+    setMenuMainImage(gallery[0] || img);
+    renderMenuGallery(gallery);
     document.getElementById('mpCat').textContent = cat;
     document.getElementById('mpTitle').textContent = title;
 
@@ -239,6 +328,19 @@ function closeMenuPop() {
 }
 
 if (menuPop) {
+    if (mpThumbs) {
+        mpThumbs.addEventListener('click', function(e) {
+            var btn = e.target.closest('.mpthumb');
+            if (!btn) return;
+            var src = btn.getAttribute('data-src');
+            if (!src) return;
+            setMenuMainImage(src);
+            mpThumbs.querySelectorAll('.mpthumb').forEach(function(t) {
+                t.classList.toggle('active', t === btn);
+            });
+        });
+    }
+
     // Card click open popup
     document.querySelectorAll('.mcard').forEach(function(card) {
         card.addEventListener('click', function() {
