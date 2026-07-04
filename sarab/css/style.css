@@ -2098,7 +2098,7 @@ section {
 }
 .branch-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
   gap: 10px;
   margin-top: auto;
   padding-top: 8px;
@@ -2111,7 +2111,11 @@ section {
   background: #fff;
 }
 .branch-actions .btn-red {
-  padding-inline: 22px;
+  padding-inline: 0;
+  min-width: 0;
+}
+.branch-actions .btn-red i {
+  margin-right: 0;
 }
 .branch-btn {
   width: 100%;
@@ -3337,7 +3341,7 @@ footer {
     font-size: 2.2rem;
   }
   .branch-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
   }
   .branch-head {
     align-items: flex-start;
@@ -3483,7 +3487,7 @@ footer {
     line-height: 1.45;
   }
   .branch-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
     gap: 8px;
   }
   .branch-actions a {
